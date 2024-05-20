@@ -1,0 +1,79 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
+  datasource:
+      driver-class-name: ${lanhua.datasource.driver-class-name}
+      url: jdbc:mysql://${lanhua.datasource.host}:${lanhua.datasource.port}/${lanhua.datasource.database}?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+      username: ${lanhua.datasource.username}
+      password: ${lanhua.datasource.password}
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    use-generated-keys: true
+    map-underscore-to-camel-case: true
+
+
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.lanhua.entity
+  configuration:
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    com:
+      sky:
+        mapper: debug
+        service: info
+        controller: info
+
+sky:
+  jwt:
+    # 设置jwt签名加密时使用的秘钥
+    admin-secret-key: itcast
+    # 设置jwt过期时间
+    admin-ttl: 7200000
+    # 设置前端传递过来的令牌名称
+    admin-token-name: token
+#knife4j:
+#  enable: true
+#  setting:
+#    language: zh-CN
+
+#springdoc相关配置
+springdoc:
+  swagger-ui:
+    #自定义swagger前端请求路径，输入http：127.0.0.1:8080/swagger-ui.html会自动重定向到swagger页面
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs    #swagger后端请求地址
+    enabled: true   #是否开启文档功能
+  group-configs:
+    - group: 'com.lanhua'
+      paths-to-match: '/**'
+      packages-to-scan: com.lanhua    #按包路径匹配:一般到启动类的包名
+
+#knife4j相关配置 可以不用改
+knife4j:
+  enable: true    #开启knife4j，无需添加@EnableKnife4j注解
+  setting:
+    language: zh_cn   #中文
+    swagger-model-name: 实体类   #重命名SwaggerModel名称,默认
+  #开启Swagger的Basic认证功能,默认是false
+  basic:
+    enable: true
+    # Basic认证用户名
+    username: hgh
+    # Basic认证密码
+    password: a1234567

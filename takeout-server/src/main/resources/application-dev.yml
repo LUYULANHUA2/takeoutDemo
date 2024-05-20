@@ -1,0 +1,8 @@
+lanhua:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    host: localhost
+    port: 3306
+    database: takeout
+    username: root
+    password: 135251
