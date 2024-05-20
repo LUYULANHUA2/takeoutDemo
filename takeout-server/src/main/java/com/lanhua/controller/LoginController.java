@@ -21,7 +21,7 @@ public class LoginController {
     @Autowired
     private EmployeeService employeeService;
 
-    @GetMapping("/list")
+    @GetMapping("/test/list")
     public Result list(){
 
         return Result.success(employeeService.list());
