@@ -1,7 +1,10 @@
 package com.lanhua.service;
 
+import com.lanhua.dto.EmployeeDTO;
 import com.lanhua.dto.EmployeeLoginDTO;
+import com.lanhua.dto.EmployeePageQueryDTO;
 import com.lanhua.entity.Employee;
+import com.lanhua.result.PageResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,4 +21,8 @@ public interface EmployeeService {
     Employee login(EmployeeLoginDTO employeeLoginDTO);
 
     List<Employee> list();
+
+    void add(EmployeeDTO employeeDTO);
+
+    PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 }

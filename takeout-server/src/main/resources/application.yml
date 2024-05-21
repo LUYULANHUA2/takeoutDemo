@@ -21,7 +21,7 @@ mybatis-plus:
 
 mybatis:
   #mapper配置文件
-  mapper-locations: classpath:mapper/*.xml
+  mapper-locations: classpath:mapper/*.xml #可以扫面到mapper文件
   type-aliases-package: com.lanhua.entity
   configuration:
     #开启驼峰命名
@@ -68,11 +68,11 @@ springdoc:
 knife4j:
   enable: true    #开启knife4j，无需添加@EnableKnife4j注解
   setting:
-    language: zh_cn   #中文
+    language: zh-CN   #中文
     swagger-model-name: 实体类   #重命名SwaggerModel名称,默认
   #开启Swagger的Basic认证功能,默认是false
   basic:
-    enable: true
+    enable: false
     # Basic认证用户名
     username: hgh
     # Basic认证密码

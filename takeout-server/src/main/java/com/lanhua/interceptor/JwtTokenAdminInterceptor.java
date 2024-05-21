@@ -1,6 +1,7 @@
 package com.lanhua.interceptor;
 
 import com.lanhua.constant.JwtClaimsConstant;
+import com.lanhua.context.BaseContext;
 import com.lanhua.properties.JwtProperties;
 import com.lanhua.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
@@ -16,8 +17,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 /**
  * jwt令牌校验的拦截器
  */
-@Component
 @Slf4j
+@Component
 public class JwtTokenAdminInterceptor implements HandlerInterceptor{
 //
     @Autowired
@@ -40,6 +41,7 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor{
             Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
             Long empId = Long.valueOf(claims.get(JwtClaimsConstant.EMP_ID).toString());
             log.info("当前员工id：", empId);
+            BaseContext.setCurrentId(empId);
             //3、通过，放行
             return true;
         } catch (Exception ex) {
@@ -58,9 +60,5 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor{
      * @return
      * @throws Exception
      */
-
-
-
-
 
 }

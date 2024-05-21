@@ -1,21 +1,30 @@
 package com.lanhua.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.lanhua.constant.MessageConstant;
+import com.lanhua.constant.PasswordConstant;
 import com.lanhua.constant.StatusConstant;
+import com.lanhua.context.BaseContext;
+import com.lanhua.dto.EmployeeDTO;
+import com.lanhua.dto.EmployeePageQueryDTO;
 import com.lanhua.exception.AccountLockedException;
 import com.lanhua.exception.AccountNotFoundException;
 import com.lanhua.exception.PasswordErrorException;
 import com.lanhua.mapper.EmployeeMapper;
+import com.lanhua.result.PageResult;
 import com.lanhua.service.EmployeeService;
 import com.lanhua.dto.EmployeeLoginDTO;
 import com.lanhua.entity.Employee;
 //import com.lanhua.mapper.EmployeeMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 //import com.lanhua.mapper.testMapper;
 import org.apache.commons.codec.digest.DigestUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,7 +47,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee login(EmployeeLoginDTO employeeLoginDTO) {
         String username = employeeLoginDTO.getUsername();
         String password = employeeLoginDTO.getPassword();
-        password =  DigestUtils.md5Hex(password);//md5对密码进行加密
+        password = DigestUtils.md5Hex(password);//md5对密码进行加密
+//        password =  DigestUtils.md5D(password);//md5对密码进行加密
         log.info("输出密码为：{}", password);
         //1、根据用户名查询数据库中的数据
         Employee employee = employeeMapper.getByUsername(username);
@@ -71,6 +81,39 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> list() {
         return employeeMapper.list();
+    }
+
+    @Override
+    public void add(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+
+        BeanUtils.copyProperties(employeeDTO, employee);
+
+        employee.setCreateTime(LocalDateTime.now());
+        employee.setUpdateTime(LocalDateTime.now());
+
+        employee.setStatus(StatusConstant.ENABLE);
+        employee.setPassword(DigestUtils.md5Hex(PasswordConstant.DEFAULT_PASSWORD));
+
+        //TODO 后期注入当前的用户
+        employee.setUpdateUser(BaseContext.getCurrentId());
+        employee.setCreateUser(BaseContext.getCurrentId());
+
+        log.info("添加的用户信息，{}",employee);
+
+        employeeMapper.insert(employee);
+    }
+
+    @Override
+    public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
+
+        PageHelper.startPage(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());
+
+        Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
+
+        long total = page.getTotal();
+        List<Employee> list = page.getResult();
+        return new PageResult(total,list);
     }
 
     public List<Employee> employeeList() {
