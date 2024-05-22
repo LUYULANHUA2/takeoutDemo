@@ -84,7 +84,8 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         //需要为消息转换器设置一个对象转换器，对象转换器可以将java对象序列化成json数据
         converter.setObjectMapper(new JacksonObjectMapper());
 
-        converters.add(0,converter);
+//        converters.add(0,converter);
+        converters.add(1,converter);
 
     }
 }
