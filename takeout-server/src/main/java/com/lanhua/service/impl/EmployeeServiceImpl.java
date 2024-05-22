@@ -109,6 +109,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         PageHelper.startPage(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());
 
+        log.info("查看传入的参数，{}",employeePageQueryDTO);
         Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
 
         long total = page.getTotal();
