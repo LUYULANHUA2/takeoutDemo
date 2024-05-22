@@ -10,17 +10,24 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 @Configuration
-//@MapperScan("com.lanhua.mapper")
+@MapperScan("com.lanhua.mapper")
 public class MyBatisPlusConfig {
 
-//    @Autowired
-//    private DataSource dataSource;
-//
+    @Autowired
+    private DataSource dataSource;
+
 //    @Bean
-//    public SqlSessionFactory sqlSessionFactory() throws Exception {
-//        MybatisSqlSessionFactoryBean sessionFactory = new MybatisSqlSessionFactoryBean();
-//        sessionFactory.setDataSource(dataSource);
-//        // Additional configuration if needed
-//        return sessionFactory.getObject();
+//    public String test01() throws Exception{
+//        return "";
 //    }
+
+
+//    @Bean
+    public SqlSessionFactory sqlSessionFactory() throws Exception {
+        MybatisSqlSessionFactoryBean sessionFactory = new MybatisSqlSessionFactoryBean();
+        sessionFactory.setDataSource(dataSource);
+        // Additional configuration if needed
+        return sessionFactory.getObject();
+//        return null;
+    }
 }
