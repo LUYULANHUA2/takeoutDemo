@@ -78,6 +78,12 @@ public class EmployeeController {
         return Result.success();
     }
 
+
+    /**
+     * 添加员工
+     * @param employeeDTO
+     * @return
+     */
     @PostMapping()
     @Operation(summary = "添加员工")
     public Result add(@RequestBody EmployeeDTO employeeDTO){
@@ -97,6 +103,28 @@ public class EmployeeController {
         PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
 
         return Result.success(pageResult);
+    }
+
+    /**
+     * 启用或停用用户
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("status/{status}")
+    @Operation(summary = "启用或停用用户")
+    public Result startOrStop(@PathVariable Integer status,Long id){
+        log.info("启用或停用用户的信息，{}{}",status,id);
+        employeeService.starOrStop(status,id);
+        return Result.success();
+
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "通过id来获取用户信息")
+    public Result<Employee> getById(@PathVariable Long id){
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
     }
 
 

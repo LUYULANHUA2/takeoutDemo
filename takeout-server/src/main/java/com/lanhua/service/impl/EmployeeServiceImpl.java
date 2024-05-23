@@ -99,7 +99,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setUpdateUser(BaseContext.getCurrentId());
         employee.setCreateUser(BaseContext.getCurrentId());
 
-        log.info("添加的用户信息，{}",employee);
+        log.info("添加的用户信息，{}", employee);
 
         employeeMapper.insert(employee);
     }
@@ -107,14 +107,29 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
 
-        PageHelper.startPage(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());
+        PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
 
-        log.info("查看传入的参数，{}",employeePageQueryDTO);
+        log.info("查看传入的参数，{}", employeePageQueryDTO);
         Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
 
         long total = page.getTotal();
         List<Employee> list = page.getResult();
-        return new PageResult(total,list);
+        return new PageResult(total, list);
+    }
+
+    @Override
+    public void starOrStop(Integer status, Long id) {
+
+        Employee employee = Employee.builder().status(status).id(id).build();
+        employeeMapper.update(employee);
+    }
+
+    @Override
+    public Employee getById(Long id) {
+
+        Employee employee = employeeMapper.getById(id);
+        employee.setPassword("******");
+        return employee;
     }
 
     public List<Employee> employeeList() {

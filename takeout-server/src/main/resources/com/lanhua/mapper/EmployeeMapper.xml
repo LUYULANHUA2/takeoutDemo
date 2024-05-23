@@ -1,15 +1,80 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.lanhua.mapper.EmployeeMapper">
+    <!-- employeeQueries.xml -->
+    <sql id="employeeWhereClause">
+        <where>
+            <if test="name != null and name != ''">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="username != null and username != ''">
+                AND username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                AND password = #{password}
+            </if>
+            <if test="phone != null and phone != ''">
+                AND phone = #{phone}
+            </if>
+            <if test="sex != null and sex != ''">
+                AND sex = #{sex}
+            </if>
+            <if test="idNumber != null and id_number != ''">
+                AND id_number = #{idNumber}
+            </if>
+            <if test="status != null and status != ''">
+                AND status = #{status}
+            </if>
+            <if test="createTime != null">
+                AND create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                AND update_time = #{updateTime}
+            </if>
+            <if test="createUser != null and create_user != ''">
+                AND create_user = #{createUser}
+            </if>
+            <if test="updateUser != null and update_user != ''">
+                AND update_user = #{updateUser}
+            </if>
+        </where>
+    </sql>
+    <sql id="employeeSetClause">
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="username != null">username = #{username},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="idNumber != null">id_number = #{idNumber},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="updateUser != null">update_user = #{updateUser}</if>
+        </set>
+    </sql>
+
 
 
     <select id="pageQuery" resultType="com.lanhua.entity.Employee">
-        select *from employee
+        SELECT * FROM employee
         <where>
-            <if test="name!=null and name!=''">
-                and name like concat('%',#{name},'%')
+            <if test="name != null and name != ''">
+                AND name LIKE CONCAT('%', #{name}, '%')
             </if>
         </where>
-        order by create_time desc
+        ORDER BY create_time DESC
     </select>
+
+
+    <update id="update" parameterType="map">
+        UPDATE employee
+        <include refid="employeeSetClause"/>
+<!--        <set>-->
+<!--            <if test="status != null">status = #{status},</if>-->
+<!--        </set>-->
+        WHERE id = #{id}
+    </update>
+
 </mapper>
