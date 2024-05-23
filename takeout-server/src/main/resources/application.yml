@@ -36,7 +36,7 @@ logging:
         service: info
         controller: info
 
-sky:
+lanhua:
   jwt:
     # 设置jwt签名加密时使用的秘钥
     admin-secret-key: itcast
@@ -44,6 +44,12 @@ sky:
     admin-ttl: 7200000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
+
+  alioss:
+      endpoint: ${lanhua.alioss.endpoint}
+      access-key-id: ${lanhua.alioss.access-key-id}
+      access-key-secret: ${lanhua.alioss.access-key-secret}
+      bucket-name: ${lanhua.alioss.bucket-name}
 #knife4j:
 #  enable: true
 #  setting:

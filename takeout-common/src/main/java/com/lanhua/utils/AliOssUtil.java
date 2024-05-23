@@ -14,9 +14,9 @@ import java.io.ByteArrayInputStream;
 
 @Data
 @Slf4j
-//@AllArgsConstructor
-@ConfigurationProperties(prefix = "aliyun.oss") //指定配置文件
-@Component
+@AllArgsConstructor
+//@ConfigurationProperties(prefix = "aliyun.oss") //指定配置文件
+//@Component
 public class AliOssUtil {
 
     private String endpoint;
@@ -58,16 +58,22 @@ public class AliOssUtil {
         }
 
         //文件访问路径规则 https://BucketName.Endpoint/ObjectName
-        StringBuilder stringBuilder = new StringBuilder("https://");
-        stringBuilder
-                .append(bucketName)
-                .append(".")
-                .append(endpoint)
-                .append("/")
-                .append(objectName);
+//        StringBuilder stringBuilder = new StringBuilder("https://");
+//        stringBuilder
+//                .append(bucketName)
+//                .append(".")
+//                .append(endpoint)
+//                .append("/")
+//                .append(objectName);
 
-        log.info("文件上传到:{}", stringBuilder.toString());
+        //文件访问路径
+        String url = endpoint.split("//")[0] + "//" + bucketName + "." +
+                endpoint.split("//")[1] + "/takeoutDemo/" + objectName;
 
-        return stringBuilder.toString();
+//        log.info("文件上传到:{}", stringBuilder.toString());
+
+//        return stringBuilder.toString();
+        log.info("文件上传到:{}", url);
+        return url;
     }
 }
