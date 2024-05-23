@@ -7,11 +7,16 @@ import com.aliyun.oss.OSSException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
 import java.io.ByteArrayInputStream;
 
 @Data
-@AllArgsConstructor
 @Slf4j
+//@AllArgsConstructor
+@ConfigurationProperties(prefix = "aliyun.oss") //指定配置文件
+@Component
 public class AliOssUtil {
 
     private String endpoint;

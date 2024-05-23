@@ -3,6 +3,7 @@ package com.lanhua.service;
 import com.lanhua.dto.EmployeeDTO;
 import com.lanhua.dto.EmployeeLoginDTO;
 import com.lanhua.dto.EmployeePageQueryDTO;
+import com.lanhua.dto.PasswordEditDTO;
 import com.lanhua.entity.Employee;
 import com.lanhua.result.PageResult;
 import org.springframework.stereotype.Service;
@@ -29,4 +30,9 @@ public interface EmployeeService {
     void starOrStop(Integer status, Long id);
 
     Employee getById(Long id);
+
+
+    void update(EmployeeDTO employeeDTO);
+
+    void editPassword(PasswordEditDTO passwordEditDTO);
 }

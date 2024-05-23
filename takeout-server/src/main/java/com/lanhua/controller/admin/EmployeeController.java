@@ -4,6 +4,7 @@ import com.lanhua.constant.JwtClaimsConstant;
 import com.lanhua.dto.EmployeeDTO;
 import com.lanhua.dto.EmployeeLoginDTO;
 import com.lanhua.dto.EmployeePageQueryDTO;
+import com.lanhua.dto.PasswordEditDTO;
 import com.lanhua.entity.Employee;
 import com.lanhua.properties.JwtProperties;
 import com.lanhua.result.PageResult;
@@ -12,6 +13,7 @@ import com.lanhua.service.EmployeeService;
 import com.lanhua.utils.JwtUtil;
 import com.lanhua.vo.EmployeeLoginVO;
 import com.microsoft.schemas.office.visio.x2012.main.PageType;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -125,6 +127,23 @@ public class EmployeeController {
     public Result<Employee> getById(@PathVariable Long id){
         Employee employee = employeeService.getById(id);
         return Result.success(employee);
+    }
+
+
+    @PutMapping
+    @ApiOperation("编辑员工信息")
+    public Result<Employee> update(@RequestBody EmployeeDTO employeeDTO){
+        log.info("编辑员工信息{}",employeeDTO);
+        employeeService.update(employeeDTO);
+        return Result.success();
+    }
+
+    @PutMapping("/editPassword")
+    @ApiOperation("编辑员工信息")
+    public Result<Employee> editPassword(@RequestBody PasswordEditDTO passwordEditDTO){
+        log.info("editPassword{}",passwordEditDTO);
+        employeeService.editPassword(passwordEditDTO);
+        return Result.success();
     }
 
 

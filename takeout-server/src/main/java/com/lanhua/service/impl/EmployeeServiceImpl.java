@@ -8,6 +8,7 @@ import com.lanhua.constant.StatusConstant;
 import com.lanhua.context.BaseContext;
 import com.lanhua.dto.EmployeeDTO;
 import com.lanhua.dto.EmployeePageQueryDTO;
+import com.lanhua.dto.PasswordEditDTO;
 import com.lanhua.exception.AccountLockedException;
 import com.lanhua.exception.AccountNotFoundException;
 import com.lanhua.exception.PasswordErrorException;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 //import com.lanhua.mapper.testMapper;
 import org.apache.commons.codec.digest.DigestUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -130,6 +132,31 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeMapper.getById(id);
         employee.setPassword("******");
         return employee;
+    }
+
+    @Override
+    public void update(EmployeeDTO employeeDTO) {
+        Employee employee=new Employee();
+        BeanUtils.copyProperties(employeeDTO,employee);
+        employee.setCreateTime(LocalDateTime.now());
+        employee.setUpdateTime(LocalDateTime.now());
+
+        employeeMapper.update(employee);
+    }
+
+    @Override
+    public void editPassword(PasswordEditDTO passwordEditDTO) {
+        //Employee employee = new Employee();
+        Long currentId = BaseContext.getCurrentId();
+        Employee nowEmp = employeeMapper.getById(currentId);
+        if (nowEmp.getPassword().equals(org.springframework.util.DigestUtils.md5DigestAsHex(passwordEditDTO.getOldPassword().getBytes(StandardCharsets.UTF_8))))
+        {
+            nowEmp.setPassword(org.springframework.util.DigestUtils.md5DigestAsHex(passwordEditDTO.getNewPassword().getBytes()));
+            employeeMapper.update(nowEmp);
+        }else {
+            throw new PasswordErrorException(MessageConstant.PASSWORD_EDIT_FAILED);
+        }
+
     }
 
     public List<Employee> employeeList() {

@@ -6,3 +6,10 @@ lanhua:
     database: takeout
     username: root
     password: 135251
+
+aliyun:
+  oss:
+    access-key-id:
+    access-key-secret:
+    endpoint:
+    bucket-name:
