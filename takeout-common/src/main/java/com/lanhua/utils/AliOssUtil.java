@@ -68,7 +68,7 @@ public class AliOssUtil {
 
         //文件访问路径
         String url = endpoint.split("//")[0] + "//" + bucketName + "." +
-                endpoint.split("//")[1] + "/takeoutDemo/" + objectName;
+                endpoint.split("//")[1] + "/" + objectName;
 
 //        log.info("文件上传到:{}", stringBuilder.toString());
 
