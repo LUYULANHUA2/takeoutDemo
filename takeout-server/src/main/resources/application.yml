@@ -45,21 +45,23 @@ logging:
 lanhua:
   jwt:
     # 设置jwt签名加密时使用的秘钥
-    admin-secret-key: itcast
+    admin-secret-key: lanhua
     # 设置jwt过期时间
     admin-ttl: 7200000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
-
+    user-secret-key: lanhua
+    user-ttl: 7200000
+    user-token-name: authorization
   alioss:
       endpoint: ${lanhua.alioss.endpoint}
       access-key-id: ${lanhua.alioss.access-key-id}
       access-key-secret: ${lanhua.alioss.access-key-secret}
       bucket-name: ${lanhua.alioss.bucket-name}
-#knife4j:
-#  enable: true
-#  setting:
-#    language: zh-CN
+
+  wechat:
+    appid: ${lanhua.wechat.appid}
+    secret: ${lanhua.wechat.secret}
 
 #springdoc相关配置
 springdoc:
