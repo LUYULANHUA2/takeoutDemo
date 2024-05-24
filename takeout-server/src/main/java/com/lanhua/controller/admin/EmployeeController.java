@@ -1,6 +1,7 @@
 package com.lanhua.controller.admin;
 
 import com.lanhua.constant.JwtClaimsConstant;
+import com.lanhua.context.BaseContext;
 import com.lanhua.dto.EmployeeDTO;
 import com.lanhua.dto.EmployeeLoginDTO;
 import com.lanhua.dto.EmployeePageQueryDTO;
@@ -103,7 +104,8 @@ public class EmployeeController {
     @Operation(summary = "分页查看用户")
     public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO){
         PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
-
+        Long id = BaseContext.getCurrentId();
+        log.info("从线程中获取id,{}",id);
         return Result.success(pageResult);
     }
 

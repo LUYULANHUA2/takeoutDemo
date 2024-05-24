@@ -1,6 +1,8 @@
 package com.lanhua.mapper;
 
+import com.lanhua.annotation.AutoFill;
 import com.lanhua.entity.User;
+import com.lanhua.enumeration.OperationType;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -21,6 +23,7 @@ public interface UserMapper {
      * 插入数据
      * @param user
      */
+//    @AutoFill(value = OperationType.INSERT)
     void insert(User user);
 
     @Select("select * from user where id=#{userId}")

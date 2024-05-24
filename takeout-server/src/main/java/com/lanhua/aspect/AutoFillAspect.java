@@ -40,6 +40,7 @@ public class AutoFillAspect {
 
         //初始数据准备
         LocalDateTime now = LocalDateTime.now();
+        //从线程中获取当前操作者的id
         Long currentId = BaseContext.getCurrentId();
 
         if (operationType == OperationType.INSERT) {

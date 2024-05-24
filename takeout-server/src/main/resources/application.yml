@@ -88,6 +88,6 @@ knife4j:
   basic:
     enable: false
     # Basic认证用户名
-    username: hgh
+    username: api
     # Basic认证密码
-    password: a1234567
+    password: api

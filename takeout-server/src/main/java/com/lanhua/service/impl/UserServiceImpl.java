@@ -71,6 +71,7 @@ public class UserServiceImpl implements UserService {
         map.put("secret",weChatProperties.getSecret());
         map.put("js_code",code);
         map.put("grant_type","authorization_code");
+        //通过httpclient去微信后台发送请求，得到了结果
         String json = HttpClientUtil.doGet(WX_LOGIN, map);
         log.info("输出respond的内容，{}",map);
         JSONObject jsonObject = JSON.parseObject(json);
