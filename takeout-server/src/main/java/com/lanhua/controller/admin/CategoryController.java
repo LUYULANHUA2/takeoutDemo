@@ -17,11 +17,11 @@ import java.util.List;
 /**
  * 分类管理
  */
-@RestController
+@Slf4j
+@Tag(name = "分类相关接口")
 @RequestMapping("/admin/category")
 //@Api(tags = "分类相关接口")
-@Tag(name = "分类相关接口")
-@Slf4j
+@RestController("adminCategroyController")
 public class CategoryController {
 
     @Autowired
