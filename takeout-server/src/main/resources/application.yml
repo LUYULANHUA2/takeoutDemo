@@ -11,6 +11,12 @@ spring:
       url: jdbc:mysql://${lanhua.datasource.host}:${lanhua.datasource.port}/${lanhua.datasource.database}?useUnicode=true&characterEncoding=UTF-8&useSSL=false
       username: ${lanhua.datasource.username}
       password: ${lanhua.datasource.password}
+  data:
+    redis:
+      host: ${lanhua.redis.host}
+      port: ${lanhua.redis.port}
+      password: ${lanhua.redis.password}
+      database: ${lanhua.redis.database}
 
 mybatis-plus:
   configuration:

@@ -7,7 +7,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.5</version>
-<!--        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
+        <!--        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
     </parent>
     <groupId>com.lanhua</groupId>
     <artifactId>takeoutDemo</artifactId>
@@ -18,6 +18,47 @@
         <module>takeout-pojo</module>
         <module>takeout-server</module>
     </modules>
+
+    <properties>
+        <aliyun.sdk.oss.version>3.15.1</aliyun.sdk.oss.version>
+        <aliyun.sdk.core.version>4.5.10</aliyun.sdk.core.version>
+        <aliyun.sdk.dysmsapi.version>1.1.0</aliyun.sdk.dysmsapi.version>
+        <activation.version>1.1.1</activation.version>
+        <jaxb.runtime.version>2.3.3</jaxb.runtime.version>
+        <jjwt.version>0.9.0</jjwt.version>
+        <knife4j.openapi.version>4.4.0</knife4j.openapi.version>
+        <knife4j.version>3.0.2</knife4j.version>
+        <fastjson.version>1.2.83</fastjson.version>
+        <commons.lang.version>2.6</commons.lang.version>
+        <jaxb.api.version>2.3.1.</jaxb.api.version>
+        <jaxb-api>2.3.1</jaxb-api>
+        <poi.version>4.1.1</poi.version>
+        <wechatpay.apache.httpclient.version>0.4.8</wechatpay.apache.httpclient.version>
+    </properties>
+
+    <!-- Define dependency management -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- Aliyun dependencies -->
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${aliyun.sdk.oss.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-core</artifactId>
+                <version>${aliyun.sdk.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+                <version>${aliyun.sdk.dysmsapi.version}</version>
+            </dependency>
+            <!-- Other dependencies -->
+            <!-- ... -->
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
 
         <dependency>
@@ -29,65 +70,65 @@
         <dependency>
             <groupId>com.aliyun.oss</groupId>
             <artifactId>aliyun-sdk-oss</artifactId>
-            <version>3.15.1</version>
+<!--            <version>3.15.1</version>-->
         </dependency>
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-java-sdk-core</artifactId>
-            <version>4.5.10</version> <!-- 根据实际版本进行调整 -->
+<!--            <version>4.5.10</version> &lt;!&ndash; 根据实际版本进行调整 &ndash;&gt;-->
         </dependency>
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
-            <version>1.1.0</version> <!-- 根据实际版本进行调整 -->
+<!--            <version>1.1.0</version> &lt;!&ndash; 根据实际版本进行调整 &ndash;&gt;-->
         </dependency>
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
-            <version>1.1.1</version>
+            <version>${activation.version}</version>
         </dependency>
         <!-- no more than 2.3.3-->
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
-            <version>4.0.5</version>
+            <version>${jaxb.runtime.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
-            <version>0.9.0</version>
+            <version>${jjwt.version}</version>
         </dependency>
 
 
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
-            <version>4.4.0</version>
+            <version>${knife4j.openapi.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>3.0.2</version>
+            <version>${knife4j.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.github.xiaoymin</groupId>
                     <artifactId>knife4j-core</artifactId>
                 </exclusion>
             </exclusions>
-<!--            <version>4.1.0</version>-->
+            <!--            <version>4.1.0</version>-->
         </dependency>
 
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>${fastjson}</version>
+            <version>${fastjson.version}</version>
         </dependency>
 
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>${commons.lang}</version>
+            <version>${commons.lang.version}</version>
         </dependency>
 
 
@@ -101,39 +142,25 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>${poi}</version>
+            <version>${poi.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>${poi}</version>
+            <version>${poi.version}</version>
         </dependency>
         <!--微信支付-->
         <dependency>
             <groupId>com.github.wechatpay-apiv3</groupId>
             <artifactId>wechatpay-apache-httpclient</artifactId>
-            <version>0.4.8</version>
+            <version>${wechatpay.apache.httpclient.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.httpcomponents</groupId>
+                    <artifactId>httpclient</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mybatis.spring>3.0.3</mybatis.spring>
-<!--        <mybatis.spring>2.1.3</mybatis.spring>-->
-        <lombok>1.18.20</lombok>
-        <fastjson>1.2.83</fastjson>
-        <commons.lang>2.6</commons.lang>
-        <druid>1.2.1</druid>
-        <pagehelper>1.3.0</pagehelper>
-        <aliyun.sdk.oss>4.5.1</aliyun.sdk.oss>
-<!--        <knife4j>4.0.0</knife4j>-->
-<!--        <knife4j>3.0.2</knife4j>-->
-        <aspectj>1.9.4</aspectj>
-        <jjwt>0.9.1</jjwt>
-        <jaxb-api>2.3.1</jaxb-api>
-        <poi>4.1.1</poi>
-    </properties>
-
 </project>
