@@ -18,6 +18,7 @@ public interface SetmealMapper {
 
     /**
      * 根据分类id查询套餐的数量
+     *
      * @param id
      * @return
      */
@@ -29,16 +30,20 @@ public interface SetmealMapper {
     Setmeal querySetMealById(Long id);
 
     void saveSetmealDish(SetmealDish setmealDish);
+
     @AutoFill(OperationType.INSERT)
     void insert(Setmeal setmeal);
 
     Page<SetmealVO> pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
+
     @AutoFill(OperationType.UPDATE)
     void update(Setmeal setmeal);
+
     @AutoFill(OperationType.UPDATE)
     void updateSetmealDishes(SetmealDish setmealDish);
 
     void deleteSetmealDishesById(Long id);
+
     @AutoFill(OperationType.INSERT)
     void insertSetmealDishes(SetmealDish setmealDish);
 
@@ -46,6 +51,7 @@ public interface SetmealMapper {
 
     /**
      * 动态条件查询套餐
+     *
      * @param setmeal
      * @return
      */
@@ -53,6 +59,7 @@ public interface SetmealMapper {
 
     /**
      * 根据套餐id查询菜品选项
+     *
      * @param setmealId
      * @return
      */

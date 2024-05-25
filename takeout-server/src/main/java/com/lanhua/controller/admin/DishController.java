@@ -12,6 +12,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -42,11 +44,12 @@ public class DishController {
      */
     @PostMapping
     @ApiOperation("新增菜品")
+    @CacheEvict(cacheNames = "dishList",key = "#dishDTO.categoryId")
     public Result save(@RequestBody DishDTO dishDTO) {
         log.info("新增菜品{}", dishDTO);
         dishService.save(dishDTO);
         //清理缓存
-        cleanCache(String.valueOf(dishDTO.getId()));
+//        cleanCache(String.valueOf(dishDTO.getId()));
         return Result.success();
     }
 
@@ -67,12 +70,12 @@ public class DishController {
 
     /**
      * 批量删除菜品
-     *
      * @param ids
      * @return
      */
     @DeleteMapping
     @ApiOperation("批量删除菜品")
+    @CacheEvict(cacheNames = "setmealCache",allEntries = true)
     public Result delete(@RequestParam List<Long> ids) {
         log.info("菜品批量删除：{}", ids);
         dishService.delete(ids);
@@ -82,7 +85,6 @@ public class DishController {
 
     /**
      * 回显
-     *
      * @param id
      * @return
      */
@@ -96,28 +98,27 @@ public class DishController {
 
     /**
      * 修改菜品
-     *
      * @param dishDTO
      * @return
      */
     @PutMapping
     @ApiOperation("修改菜品")
+    @CacheEvict(cacheNames = "dishList", allEntries = true)
     public Result update(@RequestBody DishDTO dishDTO) {
         log.info("修改菜品");
         dishService.updateWithFlavor(dishDTO);
-        cleanCache(dishName);
+//        cleanCache(dishName);
         return Result.success();
     }
 
-
     /**
      * 根据分类查询菜品
-     *
      * @param categoryId
      * @return
      */
     @GetMapping("/list")
     @ApiOperation("根据分类查询菜品")
+//    @Cacheable(cacheNames = "setmealCache",key = "#categoryId")
     public Result<List<Dish>> queryByCategoryId(Long categoryId) {
         //构造redis中的key，规则：dish_分类id
         log.info("根据分类查询菜品{}", categoryId);
@@ -127,11 +128,11 @@ public class DishController {
 
     @PostMapping("status/{status}")
     @ApiOperation("菜品起售、停售")
+    @CacheEvict(cacheNames = "dishList",allEntries = true)
     public Result updateDishStatus(@PathVariable int status, Long id) {
         log.info("菜品起售、停售");
-
         dishService.updateDishStatus(status, id);
-        cleanCache(dishName);
+//        cleanCache(dishName);
         return Result.success();
     }
 

@@ -154,13 +154,13 @@ public class DishServiceImpl implements DishService {
      * @return
      */
     public List<DishVO> listWithFlavor(Dish dish) {
-        String key="dish_"+dish.getCategoryId();
-        //查询redis中是否存在菜品数据
-        List<DishVO> list= (List<DishVO>) redisTemplate.opsForValue().get(key);
-        if (list!=null && list.size()>0){
-            //存在就直接输出
-            return list;
-        }
+//        String key="dish_"+dish.getCategoryId();
+//        //查询redis中是否存在菜品数据
+//        List<DishVO> list= (List<DishVO>) redisTemplate.opsForValue().get(key);
+//        if (list!=null && list.size()>0){
+//            //存在就直接输出
+//            return list;
+//        }
         List<Dish> dishList = dishMapper.queryByCategoryId(dish);
         List<DishVO> dishVOList = new ArrayList<>();
 
@@ -175,7 +175,7 @@ public class DishServiceImpl implements DishService {
             dishVOList.add(dishVO);
         }
         //如果不存在就存入redis
-        redisTemplate.opsForValue().set(key,dishVOList);
+//        redisTemplate.opsForValue().set(key,dishVOList);
         return dishVOList;
     }
 
