@@ -7,10 +7,10 @@ spring:
   main:
     allow-circular-references: true
   datasource:
-      driver-class-name: ${lanhua.datasource.driver-class-name}
-      url: jdbc:mysql://${lanhua.datasource.host}:${lanhua.datasource.port}/${lanhua.datasource.database}?useUnicode=true&characterEncoding=UTF-8&useSSL=false
-      username: ${lanhua.datasource.username}
-      password: ${lanhua.datasource.password}
+    driver-class-name: ${lanhua.datasource.driver-class-name}
+    url: jdbc:mysql://${lanhua.datasource.host}:${lanhua.datasource.port}/${lanhua.datasource.database}?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: ${lanhua.datasource.username}
+    password: ${lanhua.datasource.password}
   data:
     redis:
       host: ${lanhua.redis.host}
@@ -27,7 +27,7 @@ mybatis-plus:
 
 mybatis:
   #mapper配置文件
-  mapper-locations: classpath:mapper/*.xml #可以扫面到mapper文件
+  mapper-locations: classpath:com.lanhua.mapper/*.xml #可以扫面到mapper文件
   type-aliases-package: com.lanhua.entity
   configuration:
     #开启驼峰命名
@@ -50,14 +50,15 @@ lanhua:
     admin-ttl: 7200000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
+
     user-secret-key: lanhua
     user-ttl: 7200000
-    user-token-name: authorization
+    user-token-name: authentication
   alioss:
-      endpoint: ${lanhua.alioss.endpoint}
-      access-key-id: ${lanhua.alioss.access-key-id}
-      access-key-secret: ${lanhua.alioss.access-key-secret}
-      bucket-name: ${lanhua.alioss.bucket-name}
+    endpoint: ${lanhua.alioss.endpoint}
+    access-key-id: ${lanhua.alioss.access-key-id}
+    access-key-secret: ${lanhua.alioss.access-key-secret}
+    bucket-name: ${lanhua.alioss.bucket-name}
 
   wechat:
     appid: ${lanhua.wechat.appid}
